@@ -53,6 +53,8 @@ public abstract class BeanDefinitionReaderUtils {
 	 * (can be {@code null} to just register bean classes by name)
 	 * @return the bean definition
 	 * @throws ClassNotFoundException if the bean class could not be loaded
+	 *
+	 * 生成BeanDefinition的实现类GenericBeanDefinition
 	 */
 	public static AbstractBeanDefinition createBeanDefinition(
 			@Nullable String parentName, @Nullable String className, @Nullable ClassLoader classLoader) throws ClassNotFoundException {
@@ -60,6 +62,7 @@ public abstract class BeanDefinitionReaderUtils {
 		GenericBeanDefinition bd = new GenericBeanDefinition();
 		bd.setParentName(parentName);
 		if (className != null) {
+			// 如果类加载器不为空，则用类加载器加载生成class对象；没有的话只记录className
 			if (classLoader != null) {
 				bd.setBeanClass(ClassUtils.forName(className, classLoader));
 			}
@@ -154,6 +157,7 @@ public abstract class BeanDefinitionReaderUtils {
 	 * @param definitionHolder the bean definition including name and aliases
 	 * @param registry the bean factory to register with
 	 * @throws BeanDefinitionStoreException if registration failed
+	 * 注册BeanDefinition
 	 */
 	public static void registerBeanDefinition(
 			BeanDefinitionHolder definitionHolder, BeanDefinitionRegistry registry)
@@ -161,12 +165,15 @@ public abstract class BeanDefinitionReaderUtils {
 
 		// Register bean definition under primary name.
 		String beanName = definitionHolder.getBeanName();
+		// 调用org.springframework.beans.factory.support.DefaultListableBeanFactory.registerBeanDefinition方法，
+		// 在构建XmlBeanDefinitionReader对象时设置的XmlBeanFactory，调用XmlBeanFactory的会调用父类DefaultListableBeanFactory的
 		registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());
 
 		// Register aliases for bean name, if any.
 		String[] aliases = definitionHolder.getAliases();
 		if (aliases != null) {
 			for (String alias : aliases) {
+				// 调用org.springframework.core.SimpleAliasRegistry.registerAlias方法
 				registry.registerAlias(beanName, alias);
 			}
 		}
