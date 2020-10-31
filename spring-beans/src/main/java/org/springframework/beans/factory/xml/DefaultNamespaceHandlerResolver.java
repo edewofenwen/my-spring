@@ -111,7 +111,7 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 	 * from the configured mappings.
 	 * @param namespaceUri the relevant namespace URI
 	 * @return the located {@link NamespaceHandler}, or {@code null} if none found
-	 * 默认名称空间处理方法
+	 * 自定义标签处理方法
 	 */
 	@Override
 	@Nullable

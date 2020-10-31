@@ -49,6 +49,12 @@ import org.springframework.transaction.TransactionManager;
  * @see TransactionProxyFactoryBean
  * @see org.springframework.aop.framework.ProxyFactoryBean
  * @see org.springframework.aop.framework.ProxyFactory
+ *
+ * BeanFactoryTransactionAttributeSourceAdvisor 作为Advisor 的实现类，自然要遵从Advisor
+ * 的处理方式，当代理被调用时会调用这个类的增强方法，也就是此bean 的Advise，又因为在
+ * 解析事务定义标签时我们把Transactionlnterceptor 类型的bean 注入到了BeanFactoryTransactionAttributeSourceAdvisor中，
+ * 所以，在调用事务增强器增强的代理类时会首先执行Transactionlnterceptor 进行增强，
+ * 同时，也就是在Transactionlnterceptor 类中的invoke 方法中完成了整个事务的逻辑.
  */
 @SuppressWarnings("serial")
 public class TransactionInterceptor extends TransactionAspectSupport implements MethodInterceptor, Serializable {

@@ -1,0 +1,9 @@
+@startuml
+hide footbox
+
+XmlBeanFactory -> ClassPathResource: new ClassPathResource (”beanFactoryTest.xml”)
+ClassPathResource --> XmlBeanFactory: return Resource
+
+XmlBeanFactory -> reader.XmlBeanDefinitionReader: loadBeanDefinitions(Resource)
+reader.XmlBeanDefinitionReader --> XmlBeanFactory: int
+@enduml

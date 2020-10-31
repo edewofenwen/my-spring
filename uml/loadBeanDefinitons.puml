@@ -1,0 +1,12 @@
+@startuml
+hide footbox
+
+XmlBeanFactory -> XmlBeanDefinitionReader: loadBeanDefinitions(resource)
+XmlBeanDefinitionReader --> EncodedResource: new EncodedResource(resource)
+XmlBeanDefinitionReader <-- EncodedResource: encodedResource
+XmlBeanDefinitionReader <-- XmlBeanDefinitionReader: loadBeanDefinitions(encodedResource)
+
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml

@@ -33,6 +33,11 @@ import org.springframework.lang.Nullable;
  * <p>An InputStream can be opened for every resource if it exists in
  * physical form, but a URL or File handle can just be returned for
  * certain resources. The actual behavior is implementation-specific.
+ *  * 因为spring可以从很多地方加载配置文件，如url、配置文件、本地文件等，那么就需要类来加载并表示这些配置文件，
+ *  * 所以spring抽取了Resource接口来统一表示这些资源，该接口实现了InputStreamSource，可以转化成InputStream，
+ *  * 然后可以像操作流一样操作这些资源信息。该接口有判断资源是否存在、是否可读、可否打开、获取url、文件名和路径等方法。
+ *  * 它有很多实现类，有UrlResource、ClassPathResource、ServletContextResource
+ *  *
  *
  * @author Juergen Hoeller
  * @since 28.12.2003
@@ -48,13 +53,6 @@ import org.springframework.lang.Nullable;
  * @see ClassPathResource
  * @see ByteArrayResource
  * @see InputStreamResource
- */
-/**
- * 因为spring可以从很多地方加载配置文件，如url、配置文件、本地文件等，那么就需要类来加载并表示这些配置文件，
- * 所以spring抽取了Resource接口来统一表示这些资源，该接口实现了InputStreamSource，可以转化成InputStream，
- * 然后可以像操作流一样操作这些资源信息。该接口有判断资源是否存在、是否可读、可否打开、获取url、文件名和路径等方法。
- * 它有很多实现类，有UrlResource、ClassPathResource、ServletContextResource
- *
  */
 public interface Resource extends InputStreamSource {
 
